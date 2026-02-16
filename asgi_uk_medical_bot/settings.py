@@ -110,12 +110,12 @@ ASGI_APPLICATION = 'asgi_uk_medical_bot.asgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -202,12 +202,12 @@ else:
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 # DATABASES = {
 #     'default': {
@@ -335,27 +335,27 @@ SIMPLE_JWT = {
 
 
 
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6380)],
-        },
-    },
-}
-
-
-# token ='ASU0AAImcDI3ZWZjOTRiNjc0MTU0ZTE5ODA5MTJlM2Q4ZDBiNWRlN3AyOTUyNA'
-
-# REDIS_URL = 'rediss://default:ASU0AAImcDI3ZWZjOTRiNjc0MTU0ZTE5ODA5MTJlM2Q4ZDBiNWRlN3AyOTUyNA@cute-rabbit-9524.upstash.io:6379'
 # CHANNEL_LAYERS = {
 #     "default": {
 #         "BACKEND": "channels_redis.core.RedisChannelLayer",
 #         "CONFIG": {
-#             "hosts": [REDIS_URL],  # match your docker-compose service name + port
+#             "hosts": [("127.0.0.1", 6380)],
 #         },
 #     },
 # }
+
+
+token ='ASU0AAImcDI3ZWZjOTRiNjc0MTU0ZTE5ODA5MTJlM2Q4ZDBiNWRlN3AyOTUyNA'
+
+REDIS_URL = 'rediss://default:ASU0AAImcDI3ZWZjOTRiNjc0MTU0ZTE5ODA5MTJlM2Q4ZDBiNWRlN3AyOTUyNA@cute-rabbit-9524.upstash.io:6379'
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [REDIS_URL],  # match your docker-compose service name + port
+        },
+    },
+}
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

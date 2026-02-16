@@ -250,6 +250,7 @@ class BatteryStatus(models.Model):
         return f"{self.charge} - {self.voltage} - {self.current} - {self.power} - {self.temperature} - {self.time_left} - {self.count}"
     
 class MapManagement(models.Model):
+    
     map_name = models.CharField(max_length=255, unique=True)
     robot_map_file = models.FileField(null=True, blank=True, upload_to="robot_maps/")
     robot_map_url = models.URLField(null=True, blank=True)
