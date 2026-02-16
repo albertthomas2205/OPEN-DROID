@@ -1,0 +1,54 @@
+version: '3.9'
+
+services:
+
+  redis:
+    image: redis:7
+    container_name: medbot_redis
+    restart: always
+
+  web:
+    build: .
+    container_name: medbot_web
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    restart: always
+
+  celery:
+    build: .
+    container_name: medbot_celery
+    command: celery -A asgi_uk_medical_bot worker --loglevel=info
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    restart: always
+
+  celery-beat:
+    build: .
+    container_name: medbot_celery_beat
+    command: celery -A asgi_uk_medical_bot beat --loglevel=info
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    restart: always

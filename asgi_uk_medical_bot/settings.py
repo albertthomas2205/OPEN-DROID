@@ -168,8 +168,8 @@ CELERY_RESULT_BACKEND = "redis://redis:6379/0"
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-CELERY_BROKER_URL = "redis://127.0.0.1:6380/0"
-CELERY_RESULT_BACKEND = "redis://127.0.0.1:6380/0"
+# CELERY_BROKER_URL = "redis://127.0.0.1:6380/0"
+# CELERY_RESULT_BACKEND = "redis://127.0.0.1:6380/0"
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 if DEBUG:
@@ -345,17 +345,29 @@ SIMPLE_JWT = {
 # }
 
 
-token ='ASU0AAImcDI3ZWZjOTRiNjc0MTU0ZTE5ODA5MTJlM2Q4ZDBiNWRlN3AyOTUyNA'
+REDIS_HOST = os.environ.get("REDIS_HOST", "redis")
+REDIS_PORT = os.environ.get("REDIS_PORT", 6379)
 
-REDIS_URL = 'rediss://default:ASU0AAImcDI3ZWZjOTRiNjc0MTU0ZTE5ODA5MTJlM2Q4ZDBiNWRlN3AyOTUyNA@cute-rabbit-9524.upstash.io:6379'
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [REDIS_URL],  # match your docker-compose service name + port
+            "hosts": [(REDIS_HOST, int(REDIS_PORT))],
         },
     },
 }
+
+# token ='ASU0AAImcDI3ZWZjOTRiNjc0MTU0ZTE5ODA5MTJlM2Q4ZDBiNWRlN3AyOTUyNA'
+
+# REDIS_URL = 'rediss://default:ASU0AAImcDI3ZWZjOTRiNjc0MTU0ZTE5ODA5MTJlM2Q4ZDBiNWRlN3AyOTUyNA@cute-rabbit-9524.upstash.io:6379'
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [REDIS_URL],  # match your docker-compose service name + port
+#         },
+#     },
+# }
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
