@@ -224,7 +224,8 @@ class ApparatusValue(AsyncWebsocketConsumer):
     async def apparatus_value_message(self, event):
         payload = event.get("payload")
         await self.send(text_data=json.dumps({"payload": payload}))
-
+        
+        
 # ---------------------- Scheduler ----------------------
 class SchedulerValue(AsyncWebsocketConsumer):
     group_name = "scheduler_value_group"

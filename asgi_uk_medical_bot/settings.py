@@ -162,14 +162,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-CELERY_BROKER_URL = "redis://redis:6379/0"
-CELERY_RESULT_BACKEND = "redis://redis:6379/0"
+# CELERY_BROKER_URL = "redis://redis:6380/0"
+# CELERY_RESULT_BACKEND = "redis://redis:6380/0"
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# CELERY_BROKER_URL = "redis://127.0.0.1:6380/0"
-# CELERY_RESULT_BACKEND = "redis://127.0.0.1:6380/0"
+CELERY_BROKER_URL = "redis://127.0.0.1:6380/0"
+CELERY_RESULT_BACKEND = "redis://127.0.0.1:6380/0"
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 if DEBUG:
@@ -335,27 +335,27 @@ SIMPLE_JWT = {
 
 
 
-# CHANNEL_LAYERS = {
-#     "default": {
-#         "BACKEND": "channels_redis.core.RedisChannelLayer",
-#         "CONFIG": {
-#             "hosts": [("127.0.0.1", 6380)],
-#         },
-#     },
-# }
-
-
-REDIS_HOST = os.environ.get("REDIS_HOST", "redis")
-REDIS_PORT = os.environ.get("REDIS_PORT", 6379)
-
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [(REDIS_HOST, int(REDIS_PORT))],
+            "hosts": [("127.0.0.1", 6380)],
         },
     },
 }
+
+
+# REDIS_HOST = os.environ.get("REDIS_HOST", "redis")
+# REDIS_PORT = os.environ.get("REDIS_PORT", 6379)
+
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [(REDIS_HOST, int(REDIS_PORT))],
+#         },
+#     },
+# }
 
 # token ='ASU0AAImcDI3ZWZjOTRiNjc0MTU0ZTE5ODA5MTJlM2Q4ZDBiNWRlN3AyOTUyNA'
 
